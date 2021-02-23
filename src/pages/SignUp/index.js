@@ -12,7 +12,7 @@ const Page = () => {
     const [stateLoc, setStateLoc] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassord, setConfirmPassowrd] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const [stateList, setStateList] = useState([]);
 
@@ -32,14 +32,22 @@ const Page = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
+        setError('');
+        
+        if(password !== confirmPassword) {
+            setError('Senhas não conferem');
+            setDisabled(false);
+            return;
+        }
 
-        const json = await api.login(email, password);
+        const json = await api.register(name, email, password, stateLoc);
 
-        if (json.error) {
+        if(json.error) {
             setError(json.error);
         } else {
-            //doLogin(json.token, rememberPassword);
-            window.location.href = '/';
+            doLogin(json.token);
+            window.location.href = "/";
+            console.log(json.token);
         }
 
         setDisabled(false);
@@ -111,8 +119,8 @@ const Page = () => {
                             <input
                                 type="password"
                                 disabled={disabled}
-                                value={confirmPassord}
-                                onChange={e => setConfirmPassowrd(e.target.value)}
+                                value={confirmPassword}
+                                onChange={e => setConfirmPassword(e.target.value)}
                                 required
                             />
                         </div>
