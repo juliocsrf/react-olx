@@ -21,7 +21,7 @@ export const PageArea = styled.div`
 	}
 
 	.leftSide {
-		flex: 2;
+		flex: 1;
 		margin-right: 20px;
 
 		.box {
@@ -65,6 +65,32 @@ export const PageArea = styled.div`
 	}
 
 	.rightSide {
-		flex: 1;
+		width: 250px;
+
+		.price span {
+			color: #0000FF;
+			display: block;
+			font-size: 27px;
+			font-weight: bold;
+		}
+
+		.contactSellerLink {
+			background-color: #0000FF;
+			color: #FFF;
+			height: 30px;
+			border-radius: 5px;
+			box-shadow: 0px 0px 4px #999;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+			margin-bottom: 20px;
+		}
+
+		.createdBy small {
+			display: block;
+			color: #999;
+			margin-top: 10px;
+		}
 	}
 `;
