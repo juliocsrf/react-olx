@@ -1,24 +1,46 @@
 import styled from 'styled-components';
 
+export const Fake = styled.div`
+	background-color: #DDD;
+	height: ${props=>props.height}px;
+`;
+
 export const PageArea = styled.div`
-display: flex;
+	display: flex;
+	margin-top: 20px;
 
-.leftSide {
-    flex: 1;
-    margin-right: 20px;
+	.box {
+		background-color: #FFF;
+		border-radius: 5px;
+		box-shadow: 0px 0px 4px #999;
+		margin-bottom: 20px;
+	}
 
-    .adImage {
+	.box--padding {
+		padding: 10px;
+	}
 
-    }
+	.leftSide {
+		flex: 2;
+		margin-right: 20px;
 
-    .adInfo {
-        
-        .adName {
+		.adImage {
 
-        }
-        .adDescription {
-            
-        }
-    }
-}
+		}
+
+		.adInfoD {
+			padding: 10px;
+
+			.adName {
+				margin-bottom: 20px;
+			}
+			.adDescription {
+				
+			}
+		}
+	}
+
+	.rightSide {
+		flex: 1;
+	}
 `;

@@ -81,7 +81,7 @@ const Page = () => {
                             )}
                         </div>
 
-                        <Link to="/ads" clasName="seeAllLink">Ver todos</Link>
+                        <Link to="/ads" className="seeAllLink">Ver todos</Link>
                         <hr />
 
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempus in neque congue bibendum. Fusce scelerisque malesuada luctus. Aliquam dapibus odio ut augue aliquet ornare. Aliquam at eros a nibh rhoncus porta in consequat tortor. Nullam a pretium nibh. Suspendisse ligula arcu, ultricies tristique mauris non, aliquet vehicula ex. Morbi in ex sem. Mauris ligula nulla, ullamcorper eu diam ut, blandit egestas ligula. Aenean id aliquam lacus.
