@@ -24,18 +24,42 @@ export const PageArea = styled.div`
 		flex: 2;
 		margin-right: 20px;
 
-		.adImage {
+		.box {
+			display: flex;
+		}
 
+		.adImage {
+			width: 320px;
+			height: 320px;
+			margin-right: 20px;
+
+			.each-slide img {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-size: cover;
+				height: 320px;
+			}
 		}
 
 		.adInfoD {
-			padding: 10px;
+			flex: 1;
 
 			.adName {
 				margin-bottom: 20px;
+
+				h2 {
+					margin: 0;
+					margin-top: 20;
+				}
+				small {
+					color: #999;
+				}
 			}
 			.adDescription {
-				
+				small {
+					color: #999;
+				}
 			}
 		}
 	}
