@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { PageArea } from './styled';
@@ -8,8 +9,8 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 
 const Page = () => {
 	const api = useApi();
-
 	const fileField = useRef()
+	const history = useHistory();
 
 	const [categories, setCategories] = useState([]);
 
@@ -22,7 +23,7 @@ const Page = () => {
 	const [disabled, setDisabled] = useState(false);
 	const [error, setError] = useState('');
 
-	useEffect(()=>{
+	useEffect(() => {
 		const getCategories = async () => {
 			const cats = await api.getCategories();
 			setCategories(cats);
@@ -35,17 +36,45 @@ const Page = () => {
 		e.preventDefault();
 		setDisabled(true);
 		setError('');
+		let errors = [];
 
-		// const json = await api.login(email, password);
+		if (!title.trim()) {
+			errors.push('Sem título');
+		}
 
-		// if (json.error) {
-		// 	setError(json.error);
-		// } else {
-		// 	doLogin(json.token, rememberPassword);
-		// 	window.location.href = '/';
-		// }
+		if (!category) {
+			errors.push('Sem categoria');
+		}
+
+		if (errors.length === 0) {
+			const fData = new FormData();
+			fData.append('title', title);
+			fData.append('price', price);
+			fData.append('priceneg', priceNegotiable);
+			fData.append('desc', desc);
+			fData.append('cat', category);
+
+			if (fileField.current.files.length > 0) {
+				for (let i = 0;i<fileField.current.files.length;i++) {
+					fData.append('img', fileField.current.files[i]);					
+				}
+			}
+
+			const json = await api.addAd(fData);
+
+			if(!json.error) {
+				history.push(`/ad/${json.id}`);
+				return;
+			} else {
+				setError(json.error);
+			}
+
+		} else {
+			setError(errors.join("\n"));
+		}
 
 		setDisabled(false);
+
 	}
 
 	const priceMask = createNumberMask({
@@ -83,11 +112,11 @@ const Page = () => {
 						<div className="area--input">
 							<select
 								disabled={disabled}
-								onChange={e=>setCategory(e.target.value)}
+								onChange={e => setCategory(e.target.value)}
 								required
 							>
 								<option></option>
-								{categories && categories.map(i=>
+								{categories && categories.map(i =>
 									<option key={i._id} value={i._id}>{i.name}</option>
 								)}
 							</select>
@@ -102,7 +131,7 @@ const Page = () => {
 								placeholder="R$ "
 								disabled={disabled || priceNegotiable}
 								value={price}
-								onChange={e=>setPrice(e.target.value)}
+								onChange={e => setPrice(e.target.value)}
 							/>
 						</div>
 					</label>
@@ -114,7 +143,7 @@ const Page = () => {
 								type="checkbox"
 								disable={disabled}
 								checked={priceNegotiable}
-								onChange={e=>setPriceNegotiable(!priceNegotiable)}
+								onChange={e => setPriceNegotiable(!priceNegotiable)}
 							/>
 						</div>
 					</label>
@@ -125,7 +154,7 @@ const Page = () => {
 							<textarea
 								disabled={disabled}
 								value={desc}
-								onChange={e=>setDesc(e.target.value)}
+								onChange={e => setDesc(e.target.value)}
 							>
 							</textarea>
 						</div>
