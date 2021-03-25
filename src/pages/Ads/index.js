@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { PageArea } from './styled';
 import useApi from '../../helpers/OlxAPI';
 
@@ -8,65 +8,103 @@ import AdItem from '../../components/partials/AdItem';
 
 
 const Page = () => {
-    const api = useApi();
+	const api = useApi();
+	const history = useHistory();
 
-    const [stateList, setStateList] = useState([{ name: 'teste' }]);
-    const [categories, setCategories] = useState([]);
-    const [adList, setAdList] = useState([]);
+	const useQueryString = () => {
+		return new URLSearchParams(useLocation().search);
+	}
 
-    useEffect(() => {
-        const getStates = async () => {
-            const slist = await api.getStates();
-            setStateList(slist);
-        }
+	const query = useQueryString();
 
-        getStates();
-    }, []);
+	const [q, setQ] = useState(query.get('q') ?? '');
+	const [cat, setCat] = useState(query.get('cat') ?? '');
+	const [state, setState] = useState(query.get('state') ?? '');
 
-    useEffect(() => {
-        const getCategories = async () => {
-            const cats = await api.getCategories();
-            setCategories(cats);
-        }
+	const [stateList, setStateList] = useState([{ name: 'teste' }]);
+	const [categories, setCategories] = useState([]);
+	const [adList, setAdList] = useState([]);
 
-        getCategories();
-    }, []);
 
-    useEffect(() => {
-        const getRecentAds = async () => {
-            const json = await api.getAds({
-                sort: 'desc',
-                limit: 8
-            });
+	useEffect(()=>{
+		let queryString = [];
+		if(q) {
+			queryString.push(`q=${q}`);
+		}
+		if(cat) {
+			queryString.push(`cat=${cat}`);
+		}
+		if(state) {
+			queryString.push(`state=${state}`);
+		}
 
-            setAdList(json.ads);
-        }
+		history.replace({
+			search: `?${queryString.join('&')}`
+		});
+	}, [q, cat, state]);
 
-        getRecentAds();
-    }, []);
+	useEffect(() => {
+		const getStates = async () => {
+			const slist = await api.getStates();
+			setStateList(slist);
+		}
 
-    return (
+		getStates();
+	}, []);
+
+	useEffect(() => {
+		const getCategories = async () => {
+			const cats = await api.getCategories();
+			setCategories(cats);
+		}
+
+		getCategories();
+	}, []);
+
+	useEffect(() => {
+		const getRecentAds = async () => {
+			const json = await api.getAds({
+				sort: 'desc',
+				limit: 8
+			});
+
+			setAdList(json.ads);
+		}
+
+		getRecentAds();
+	}, []);
+
+	return (
 		<PageContainer>
 			<PageArea>
 				<div className="leftSide">
 					<form method="GET">
-						<input type="text" name="q" />
+						<input 
+							type="text" 
+							name="q" 
+							placeholder="O que você procura?" 
+							value={q}
+							onChange={e=>setQ(e.target.value)}
+						/>
 
 						<div className="filterName">Estado:</div>
-						<select name="state">
+						<select name="state" value={state} onChange={e=>setState(e.target.value)}>
 							<option></option>
-							{stateList.map((i, k) => 
+							{stateList.map((i, k) =>
 								<option value={i.name} key={i}>{i.name}</option>
 							)}
 						</select>
 
-
 						<div className="filterName">Categoria:</div>
 						<ul>
-							{categories.map((i, k)=>
-								<li key={k} className="categoryName">
-									<img src={i.img} alt="" />
-									<span>{i.name}</span>
+							{categories.map((i, k) =>
+								<li 
+									key={k} 
+									className={cat===i.slug ? 'categoryItem active' : 'categoryItem'}
+									onClick={()=>setCat(i.slug)}
+								>
+										<img src={i.img} alt="" />
+										<span>{i.name}</span>
 								</li>
 							)}
 						</ul>
@@ -77,7 +115,7 @@ const Page = () => {
 				</div>
 			</PageArea>
 		</PageContainer>
-    );
+	);
 }
 
 export default Page;
