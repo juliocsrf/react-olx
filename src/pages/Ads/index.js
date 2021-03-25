@@ -6,6 +6,7 @@ import useApi from '../../helpers/OlxAPI';
 import { PageContainer } from '../../components/MainComponents';
 import AdItem from '../../components/partials/AdItem';
 
+let timer;
 
 const Page = () => {
 	const api = useApi();
@@ -25,6 +26,21 @@ const Page = () => {
 	const [categories, setCategories] = useState([]);
 	const [adList, setAdList] = useState([]);
 
+	const [resultOpacity, setResultOpacity] = useState(1);
+
+	const getAdsList = async () => {
+		const json = await api.getAds({
+			sort: 'desc',
+			limit: 9,
+			q,
+			cat,
+			state
+		});
+
+		setAdList(json.ads);
+		setResultOpacity(1);
+	}
+
 
 	useEffect(()=>{
 		let queryString = [];
@@ -41,6 +57,13 @@ const Page = () => {
 		history.replace({
 			search: `?${queryString.join('&')}`
 		});
+
+		if(timer) {
+			clearTimeout(timer);
+		}
+
+		timer = setTimeout(getAdsList, 1000);
+		setResultOpacity(0.3)
 	}, [q, cat, state]);
 
 	useEffect(() => {
@@ -59,19 +82,6 @@ const Page = () => {
 		}
 
 		getCategories();
-	}, []);
-
-	useEffect(() => {
-		const getRecentAds = async () => {
-			const json = await api.getAds({
-				sort: 'desc',
-				limit: 8
-			});
-
-			setAdList(json.ads);
-		}
-
-		getRecentAds();
 	}, []);
 
 	return (
@@ -111,7 +121,12 @@ const Page = () => {
 					</form>
 				</div>
 				<div className="rightSide">
-					...
+					<h2>Resultados</h2>
+					<div className="list" style={{opacity: resultOpacity}}>
+						{adList.map((i, k)=>
+							<AdItem key={k} data={i} />
+						)}
+					</div>
 				</div>
 			</PageArea>
 		</PageContainer>
