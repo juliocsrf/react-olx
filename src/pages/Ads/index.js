@@ -23,7 +23,7 @@ const Page = () => {
 	const [state, setState] = useState(query.get('state') ?? '');
 
 	const [adsTotal, setAdsTotal] = useState(0);
-	const [stateList, setStateList] = useState([{ name: 'teste' }]);
+	const [stateList, setStateList] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [adList, setAdList] = useState([]);
 	const [pageCount, setPageCount] = useState(0);
