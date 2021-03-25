@@ -9,7 +9,7 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 
 const Page = () => {
 	const api = useApi();
-	const fileField = useRef()
+	const fileField = useRef();
 	const history = useHistory();
 
 	const [categories, setCategories] = useState([]);
