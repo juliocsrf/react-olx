@@ -3,7 +3,7 @@ import { PageContainer } from '../../components/MainComponents';
 import FakeComponent from '../../components/partials/FakeComponent';
 import Fake from '../../components/partials/FakeComponent';
 import useApi from '../../helpers/OlxAPI';
-import { PageArea } from './styled';
+import { PageArea, MyAdsArea } from './styled';
 import UserImage from '../../assets/img/user.png';
 
 const Page = () => {
@@ -174,6 +174,29 @@ const Page = () => {
                     </div>
                 </form>
             </PageArea>
+
+            <h2>Meus anúncios</h2>
+
+            <MyAdsArea>
+                <div className="box box--padding aditem">
+                    <div className="leftSide">
+                        <span className="spnTitle">Meu anúncio</span>
+                        <span className="spnViews">50 visualizações</span>
+                        <div className="divImage"></div>
+                        <span className="spnPrice">R$ 650,00</span>
+                    </div>
+
+                    <div className="middle">
+                        <span className="spnPostDate"><b>Data de postagem:</b> 26/03/2021 11:04</span>
+                        <span className="spnCategory"><b>Categoria:</b> Eletrônicos</span>
+                        <span className="spnDescription"><b>Descrição:</b></span>
+                    </div>
+
+                    <div className="rightSide">
+                        Right
+                    </div>
+                </div>
+            </MyAdsArea>
         </PageContainer>
     );
 }

@@ -131,3 +131,79 @@ export const PageArea = styled.div`
         }
     }
 `;
+
+export const MyAdsArea = styled.div`
+    margin-top: 10px;
+
+    .box {
+        background-color: #FFF;
+        border-radius: 5px;
+        box-shadow: 0px 0px 4px #999;
+        margin-bottom: 20px;
+    }
+
+    .box--padding {
+        padding: 10px;
+    }
+
+    .aditem {
+        display: flex;
+
+        .leftSide {
+            flex: 1;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+
+            .spnTitle {
+                font-size: 20px;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+            .spnViews {
+                margin-top: 5px;
+                font-size: 14px;
+                color: #999;
+                font-style: italic;
+            }
+
+            .divImage {
+                width: 100px;
+                height: 100px;
+                background-color: #DDD;
+                margin-top: 10px;
+            }
+
+            .spnPrice {
+                margin-top: 10px;
+                font-size: 18px;
+                color: blue;
+            }
+        }
+
+        .middle {
+            flex: 3;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+
+            .spnPostDate {
+                
+            }
+
+            .spnDescription {
+                
+            }
+
+        }
+
+        .rightSide {
+            flex: 1;
+            border: 1px solid black;
+        }
+    }
+`;
