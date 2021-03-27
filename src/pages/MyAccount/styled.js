@@ -151,17 +151,15 @@ export const MyAdsArea = styled.div`
 
         .leftSide {
             flex: 1;
-            border: 1px solid black;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             padding: 5px;
 
             .spnTitle {
                 font-size: 20px;
-                font-weight: bold;
-                text-decoration: underline;
+				text-align: center;
             }
 
             .spnViews {
@@ -187,9 +185,12 @@ export const MyAdsArea = styled.div`
 
         .middle {
             flex: 3;
-            border: 1px solid black;
             display: flex;
             flex-direction: column;
+			font-size: 14px;
+			color: #333;
+			padding: 0 20px;
+			border-left: 1px solid #CCC;
 
             .spnPostDate {
                 
@@ -203,7 +204,46 @@ export const MyAdsArea = styled.div`
 
         .rightSide {
             flex: 1;
-            border: 1px solid black;
+			display: flex;
+			flex-direction: column;
+			padding: 0 10px;
+			justify-content: center;
+			align-items: center;
+			border-left: 1px solid #CCC;
+
+			button {
+                font-size: 15px;
+                border: 0;
+                border-radius: 5px;
+                height: 40px;
+                padding: 0 20px;
+				color: white;
+				cursor: pointer;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				width: 100%;
+			}
+
+			button.edit {
+				background-color: #49AEEF;
+			}
+
+			button.inactive {
+				background-color: #e74c3c;
+			}
+
+			.status {
+				font-size: 24px;
+				margin-top: 30px;
+
+				&.active {
+					color: #2ecc71;
+				}
+
+				&.inactive {
+					color: #e74c3c;
+				}
+			}
         }
     }
 `;
