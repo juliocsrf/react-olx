@@ -130,6 +130,31 @@ export const PageArea = styled.div`
             }
         }
     }
+
+@media (max-width: 600px) {
+	& {
+		padding: 0 10px;
+	}
+
+	.profile {
+		.box-body {
+			flex-direction: column;
+			align-items: center;
+
+			.leftSide {
+				text-align: center;
+			}
+		}
+	}
+
+	.areaRow {
+		max-width: 100%;
+
+		.area {
+			width: 100%;
+		}
+	}
+}
 `;
 
 export const MyAdsArea = styled.div`
@@ -246,4 +271,23 @@ export const MyAdsArea = styled.div`
 			}
         }
     }
+
+@media (max-width: 600px) {
+	& {
+		padding: 0 10px;
+	}
+
+	.aditem {
+		flex-direction: column;
+
+		.middle {
+			padding: 20px;
+			border-left: none;
+		}
+
+		.rightSide {
+			border-left: none;
+		}
+	}
+}
 `;
